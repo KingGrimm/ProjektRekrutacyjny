@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+    <h:panelGrid columns="2" cellpadding="5">   
+        <p:outputLabel for="date" value="Date: " />
+        <p:inputMask id="date"  mask="99/99/9999" value="#{client.date}"/>
+        
+        <p:outputLabel for="name" value="Name:" />
+        <p:inputText id="name" value="#{client.name}"/>
+ 
+        <p:outputLabel for="surname" value="Surname:" />
+        <p:inputText id="surname" value="#{client.surname}" />
+        
+        <p:outputLabel for="phone" value="Phone:" />
+        <p:inputMask id="phone"  mask="(+99) 999-99-99-99" value="#{client.telephone_number}"/>
+ 
+        <p:commandButton value="Reset" type="reset" />
+        <p:commandButton value="Submit" action="#{clientController.dupa}"/>
+    </h:panelGrid>
+        Hello from Facelets
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    </h:body>
+</html>
+
