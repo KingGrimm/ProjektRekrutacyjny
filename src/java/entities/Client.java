@@ -5,59 +5,60 @@
  */
 package entities;
 
+import controler.ClientController;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
-import java.util.Date;
-
+import javax.faces.bean.ManagedBean;
 /**
  *
  * @author King
  */
-@Named
-@Dependent
+
+@ManagedBean
 public class Client {
+
 private int ID;
-private Date date;
+//private Date date;
 private String name;
 private String surname;
 private String telephone_number;
 private String comment;
     
+/*
+  <p:outputLabel for="date" value="Date: " />
+        <p:inputMask id="date"  mask="99/99/9999" value="#{client.date}"/>
+        <p:outputLabel for="phone" value="Phone:" />
+        <p:inputMask id="phone"  mask="(+99) 999-99-99-99" value="#{client.telephone_number}"/>
+      */
     /**
      * Creates a new instance of Client
      */
 
-    public Client(int ID, Date date, String name, String surname, String telephone_number, String comment) {
-        this.ID = ID;
-        this.date = date;
+    
+    public Client(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.telephone_number = telephone_number;
-        this.comment = comment;
-    }
-    
-    public String getTelephone_number() {
-        return telephone_number;
     }
 
-    public void setTelephone_number(String telephone_number) {
-        this.telephone_number = telephone_number;
+    public Client(/*int ID,*/String name, String surname /*Date date*/, String telephone_number, String comment) {
+      //  this.ID = ID;
+        //      this.date = date;
+           this.name = name;
+           this.surname = surname;
+           this.telephone_number=telephone_number;
+           this.comment=comment;
+        //    this.telephone_number = telephone_number;
+        //    this.comment = comment;
     }
+    
 
     public int getID() {
         return ID;
     }
 
     public void setID(int ID) {
+        System.out.println("Zmiana ID z "+this.ID+" na "+ID);
         this.ID = ID;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getName() {
@@ -74,7 +75,25 @@ private String comment;
     }
 
     public void setSurname(String surname) {
+        System.out.println("Zmiana Surname z "+this.surname+" na "+surname);
         this.surname = surname;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" + "ID=" + ID + ", name=" + name + ", surname=" + surname + '}';
+    }
+
+
+    public Client() {
+    }
+
+    public String getTelephone_number() {
+        return telephone_number;
+    }
+
+    public void setTelephone_number(String telephone_number) {
+        this.telephone_number = telephone_number;
     }
 
     public String getComment() {
@@ -84,8 +103,6 @@ private String comment;
     public void setComment(String comment) {
         this.comment = comment;
     }
-   /* public static Client getClient(){
-        return this;
-    }*/
+
     
 }

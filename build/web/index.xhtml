@@ -8,26 +8,34 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-    <h:panelGrid columns="2" cellpadding="5">   
-        <p:outputLabel for="date" value="Date: " />
-        <p:inputMask id="date"  mask="99/99/9999" value="#{client.date}"/>
-        
-        <p:outputLabel for="name" value="Name:" />
-        <p:inputText id="name" value="#{client.name}"/>
+    <h:body onload="">
+           <h:form>
+
+    <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
+      
+        <p:outputLabel for="name" value="Name:"  />
+        <p:inputText id="name" value="#{clientController.temporaryName}"/>
  
         <p:outputLabel for="surname" value="Surname:" />
-        <p:inputText id="surname" value="#{client.surname}" />
-        
-        <p:outputLabel for="phone" value="Phone:" />
-        <p:inputMask id="phone"  mask="(+99) 999-99-99-99" value="#{client.telephone_number}"/>
- 
+        <p:inputText id="surname" value="#{clientController.temporarySurname}" />
+         <p:outputLabel for="phone" value="Phone:" />
+         <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
+         <p:outputLabel for="comment" value="Comment:" />
+         <p:inputText id="comment" value="#{clientController.temporaryComment}" />
+                 
         <p:commandButton value="Reset" type="reset" />
-        <p:commandButton value="Submit" action="#{clientController.dupa}"/>
+        <p:commandButton value="Submit" action="#{clientController.addClient()}" />
+  
+  
+
     </h:panelGrid>
+                   </h:form>
+
+      
+    
         Hello from Facelets
         <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:link outcome="newxhtml" value="Primefaces welcome page" />
     </h:body>
 </html>
 
