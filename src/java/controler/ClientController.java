@@ -216,6 +216,7 @@ public class ClientController {
 
     public List<Client> findClient() {
         List<Client> findings = new ArrayList<Client>(listowadupa);
+        System.out.println("Zawartosc nowego findings:");
         System.out.println(findings);
         if(temporaryComment==null)
             temporaryComment="";
@@ -225,13 +226,17 @@ public class ClientController {
             temporaryNumber="";
         if(temporarySurname==null)
             temporarySurname="";
+        
+        List<Integer> toErease = new ArrayList<Integer>();
 
-        for (int i = 0; i < listowadupa.size(); i++) {
+        for (int i = listowadupa.size()-1; i >= 0; i--) {
             if (( (listowadupa.get(i).getName()).contains(temporaryName)==false) || (listowadupa.get(i).getSurname().contains(temporarySurname)==false || listowadupa.get(i).getTelephone_number().contains(temporaryNumber)==false)
                     || listowadupa.get(i).getComment().contains(temporaryComment)==false) {
-                findings.remove(i);
+               findings.remove(i);
             }
         }
+         System.out.println("Zawartosc findings po przeszukaniu:");
+        System.out.println(findings);
         return findings;
     }
 
