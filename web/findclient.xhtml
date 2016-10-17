@@ -73,12 +73,12 @@
                             <p:inputText id="comment" value="#{clientController.temporaryComment}" />
 
                       
-                            <p:commandButton value="Submit" action="#{clientController.findClient()}"  />
+                            <p:commandButton value="Submit" action="#{clientController.findClient()}" update=":form12:result_of_finding"  />
 
                         </h:panelGrid>
                         <p:growl id="msgs" showDetail="true" />
 
-                        <p:dataTable var="client" value="#{clientController.findClient()}" editable="true" style="margin-bottom:20px" >
+                        <p:dataTable id="result_of_finding" var="client" value="#{clientController.findClient()}" editable="true" style="margin-bottom:20px" >
 
                             <f:facet name="hheader"> Baza klientów</f:facet>
 
@@ -125,15 +125,10 @@
                                 <!-- </h:form>-->
 
                             </p:column>
-
-
                         </p:dataTable>
                     </h:form>
                 </p:layoutUnit>
-
             </p:layout>
-
-
         </h:body>
     </f:view>
 </html>

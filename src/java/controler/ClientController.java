@@ -227,7 +227,6 @@ public class ClientController {
         if(temporarySurname==null)
             temporarySurname="";
         
-        List<Integer> toErease = new ArrayList<Integer>();
 
         for (int i = listowadupa.size()-1; i >= 0; i--) {
             if (( (listowadupa.get(i).getName()).contains(temporaryName)==false) || (listowadupa.get(i).getSurname().contains(temporarySurname)==false || listowadupa.get(i).getTelephone_number().contains(temporaryNumber)==false)
