@@ -6,6 +6,8 @@
 package entities;
 
 import controler.ClientController;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +20,7 @@ import javax.faces.bean.ManagedBean;
 public class Client {
 
 private int ID;
-//private Date date;
+private LocalDateTime date;
 private String name;
 private String surname;
 private String telephone_number;
@@ -47,6 +49,7 @@ private String comment;
            this.surname = surname;
            this.telephone_number=telephone_number;
            this.comment=comment;
+           this.date=LocalDateTime.now();
         //    this.telephone_number = telephone_number;
         //    this.comment = comment;
     }
@@ -62,12 +65,14 @@ private String comment;
     }
 
     public String getName() {
+        System.out.println("Pobrano imie: "+name);
         return name;
     }
 
     public void setName(String name) {
+        System.out.println("Zmieniono nazwe z "+this.name+" na "+name);
         this.name = name;
-        System.out.println("Zmieniono nazwe na"+name);
+        
     }
 
     public String getSurname() {
@@ -102,6 +107,14 @@ private String comment;
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     

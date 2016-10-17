@@ -38,10 +38,47 @@
                     <h:form id="form12" onkeypress="if (event.keyCode == 13) {
                                 return false;
                             }">
+               <!--         <p:dataTable var="finder">
+                            <p:column>
+                                <p:outputLabel for="name" value="Name:"  />
+                                <p:inputText id="name" value="#{clientController.temporaryName}"/>
+                            </p:column> 
+                            <p:column>
+                                <p:outputLabel for="surname" value="Surname:" />
+                                <p:inputText id="surname" value="#{clientController.temporarySurname}" />
+                            </p:column> 
+                            <p:column>  
+                                <p:outputLabel for="phone" value="Phone:" />
+                                <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
+                            </p:column> 
+                            <p:column> 
+                                <p:outputLabel for="comment" value="Comment:" />
+                                <p:inputText id="comment" value="#{clientController.temporaryComment}" />
+                            </p:column> 
+                            <p:column>  
+                                <p:commandButton value="Reset" type="reset" />
+                            </p:column> 
 
+                        </p:dataTable>-->
+                  <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
+
+                            <p:outputLabel for="name" value="Name:"  />
+                            <p:inputText id="name" value="#{clientController.temporaryName}"/>
+
+                            <p:outputLabel for="surname" value="Surname:" />
+                            <p:inputText id="surname" value="#{clientController.temporarySurname}" />
+                            <p:outputLabel for="phone" value="Phone:" />
+                            <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
+                            <p:outputLabel for="comment" value="Comment:" />
+                            <p:inputText id="comment" value="#{clientController.temporaryComment}" />
+
+                      
+                            <p:commandButton value="Submit" action="#{clientController.findClient()}"  />
+
+                        </h:panelGrid>
                         <p:growl id="msgs" showDetail="true" />
-     
-                        <p:dataTable var="client" value="#{clientController.listowadupa}" editable="true" style="margin-bottom:20px" >
+
+                        <p:dataTable var="client" value="#{clientController.findClient()}" editable="true" style="margin-bottom:20px" >
 
                             <f:facet name="hheader"> Baza klientów</f:facet>
 

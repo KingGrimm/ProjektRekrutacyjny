@@ -13,8 +13,9 @@
             </f:facet>
         </h:head>
         <h:body>
+
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="100" resizable="false" closable="true" collapsible="true">
                     Header
                 </p:layoutUnit>
 
@@ -23,55 +24,79 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:menuitem value="Zobacz baze" outcome="newxhtml" />
-                        <p:menuitem value="Dodaj klienta" outcome="addingclient" />
-                        <p:menuitem value="Znajdz klienta" url="http://forum.primefaces.org/" />
-                        <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-                    </p:menu>
+                    <h:form >
+                        <p:menu>
+                            <p:menuitem value="Zobacz baze" outcome="newxhtml" />
+                            <p:menuitem value="Dodaj klienta" outcome="addingclient" />
+                            <p:menuitem value="Znajdz klienta" outcome="findclient" />
+                        </p:menu>
+                    </h:form>
                 </p:layoutUnit>
 
 
                 <p:layoutUnit position="center">
+                    <h:form id="form12" onkeypress="if (event.keyCode == 13) {
+                                return false;
+                            }">
 
-                    <p:dataTable var="client" value="#{clientController.listowadupa}">
-                        <f:facet name="hheader"> Baza klientów</f:facet>
-                        <p:column headerText="Id">
-                            <h:outputText value="#{client.ID}" />
-                        </p:column>
-                        <p:column headerText="Name">
-                            <h:outputText value="#{client.name}" />
-                        </p:column>
-                        <p:column headerText="Surname">
-                            <h:outputText value="#{client.surname}" />
-                        </p:column>
-                        <p:column headerText="Phone Number">
-                            <h:outputText value="#{client.telephone_number}" />
-                        </p:column>  
-                        <p:column headerText="Comment">
-                            <h:outputText value="#{client.comment}" />
-                        </p:column>
+                        <p:growl id="msgs" showDetail="true" />
+     
+                        <p:dataTable var="client" value="#{clientController.listowadupa}" editable="true" style="margin-bottom:20px" >
 
-                        <p:column>
-                            <h:form>
-                                <p:growl id="messages" />
-                                
-                                <p:splitButton value="Save"  update="messages" icon="ui-icon-disk">
-                                    <p:menuitem value="Edit"  update="messages" icon="ui-icon-arrowrefresh-1-w" />
-                                    <p:menuitem value="Delete" action="#{clientController.deleteClient(client.ID)}" ajax="false" icon="ui-icon-close" />
-               
-                                      <!--                       <p:separator />
-                                    <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink" />-->
-                                </p:splitButton>
-                         </h:form>
+                            <f:facet name="hheader"> Baza klientów</f:facet>
 
-                        </p:column>
-       
-                    </p:dataTable>
-         
+                            <p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form12:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form12:msgs" />
+
+                            <p:column headerText="Id">
+                                <h:outputText value="#{client.ID}" />
+                            </p:column>
+                            <p:column headerText="Date:">
+                                <h:outputText value="#{client.date}" />
+                            </p:column>
+                            <p:column headerText="Name">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.name}"  /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Surname">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.surname}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.surname}" style="width:100%" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Phone Number">
+                                <h:outputText value="#{client.telephone_number}" />
+                            </p:column>  
+                            <p:column headerText="Comment">
+                                <h:outputText value="#{client.comment}" />
+                            </p:column>
+                            <p:column>
+                    <!--    <p:commandButton value="Edit" actionListener="#{clientController.chooseCar()}"  icon="ui-icon-arrowrefresh-1-w" />  -->
+
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:column>
+                            <p:column>
+                                <!--   <h:form>-->
+                                <p:commandButton value="Delete" actionListener="#{clientController.deleteClient(client.ID)}" ajax="false" icon="ui-icon-close" />
+                                <!--                       <p:separator />
+                              <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink" />-->
+
+                                <!-- </h:form>-->
+
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </h:form>
                 </p:layoutUnit>
-                 
+
             </p:layout>
+
+
         </h:body>
     </f:view>
 </html>
