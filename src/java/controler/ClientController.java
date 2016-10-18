@@ -27,6 +27,8 @@ public class ClientController {
     private String temporarySurname;
     private String temporaryNumber;
     private String temporaryComment;
+    private String temporaryDate;
+    private String temporaryID;
 
     static private int currentID;
     private static List<Client> listowadupa;
@@ -45,12 +47,11 @@ public class ClientController {
         currentID++;
         System.out.println("Dodano klienta. Rozmiar vetora to " + listowadupa.size());
         System.out.println(listowadupa.get(listowadupa.size() - 1).toString());
-        String dupa = "dupa";
-        if (!dupa.contains("")) {
-            System.out.println("Sukces");
-        } else {
-            System.out.println("porazka");
-        }
+        temporaryName="";
+    temporarySurname="";
+     temporaryNumber="";
+      temporaryComment="";
+     
 
     }
 
@@ -149,9 +150,9 @@ public class ClientController {
         addClient("Marek", "Tworek", "605965565", "");
     }
 
-    public String deleteClient(String id) {
+    public void deleteClient(String id) {
         removeClientWithId(id);
-        return "/newxhtml.xhtml";
+     
     }
 
     private void removeClientWithId(String id) {
@@ -226,11 +227,15 @@ public class ClientController {
             temporaryNumber="";
         if(temporarySurname==null)
             temporarySurname="";
+        if(temporaryDate==null)
+            temporaryDate="";
+        if(temporaryID==null)
+            temporaryID="";
         
 
         for (int i = listowadupa.size()-1; i >= 0; i--) {
             if (( (listowadupa.get(i).getName()).contains(temporaryName)==false) || (listowadupa.get(i).getSurname().contains(temporarySurname)==false || listowadupa.get(i).getTelephone_number().contains(temporaryNumber)==false)
-                    || listowadupa.get(i).getComment().contains(temporaryComment)==false) {
+                    || listowadupa.get(i).getComment().contains(temporaryComment)==false || listowadupa.get(i).getDate().contains(temporaryDate)==false || Integer.toString(listowadupa.get(i).getID()).contains(temporaryID)==false) {
                findings.remove(i);
             }
         }
@@ -239,4 +244,30 @@ public class ClientController {
         return findings;
     }
 
+    public void addClientMenu(){
+           Map<String,Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("addingcleint", options, null);
+    
+    }
+      public void onReturnAddingClient(SelectEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Data Returned", event.getObject().toString()));
+    }
+
+    public String getTemporaryDate() {
+        return temporaryDate;
+    }
+
+    public void setTemporaryDate(String temporaryDate) {
+        this.temporaryDate = temporaryDate;
+    }
+
+    public String getTemporaryID() {
+        return temporaryID;
+    }
+
+    public void setTemporaryID(String temporaryID) {
+        this.temporaryID = temporaryID;
+    }
+      
 }

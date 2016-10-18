@@ -39,59 +39,109 @@
                                 return false;
                             }">
 
-                        <p:growl id="msgs" showDetail="true" />
-     
-                        <p:dataTable var="client" value="#{clientController.listowadupa}" editable="true" style="margin-bottom:20px" >
+                        <p:growl id="msgs" showDetail="true"  />
 
-                            <f:facet name="hheader"> Baza klientów</f:facet>
+
+                        <p:dataTable id="Baza_Danych" var="client" value="#{clientController.findClient()}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true">
+
+                            <f:facet name="header"> Baza klientów</f:facet>
 
                             <p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form12:msgs" />
                             <p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form12:msgs" />
 
-                            <p:column headerText="Id">
-                                <h:outputText value="#{client.ID}" />
+                            <p:column headerText="ID" style="width:8%">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.ID}"  /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{client.ID}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Date:">
-                                <h:outputText value="#{client.date}" />
+                            <p:column headerText="Data dodania:">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.date}"  /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputMask value="#{client.date}" style="width:100%" mask="9999-99-99"/>
+                                    </f:facet>
+                                </p:cellEditor>
+
+
                             </p:column>
-                            <p:column headerText="Name">
+                            <p:column headerText="Imię:">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{client.name}"  /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Surname">
+                            <p:column headerText="Nazwisko:">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{client.surname}" /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{client.surname}" style="width:100%" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Phone Number">
-                                <h:outputText value="#{client.telephone_number}" />
+                            <p:column headerText="Numer telefonu:">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.telephone_number}" style="float:center" /></f:facet>
+                                    <f:facet name="input"><p:inputMask value="#{client.telephone_number}"  style="width:100%;float:center" mask="(+99) 999-99-99-99" /></f:facet>
+                                </p:cellEditor>
                             </p:column>  
-                            <p:column headerText="Comment">
-                                <h:outputText value="#{client.comment}" />
+                            <p:column headerText="Komentarz:">
+                                <h:outputText value="#{client.comment}" style="center" />
                             </p:column>
-                            <p:column>
+                            <p:column  headerText="Edytuj" style="width:4%">
                     <!--    <p:commandButton value="Edit" actionListener="#{clientController.chooseCar()}"  icon="ui-icon-arrowrefresh-1-w" />  -->
 
-                                <p:column style="width:32px">
-                                    <p:rowEditor />
-                                </p:column>
+
+                                <p:rowEditor />
+
                             </p:column>
-                            <p:column>
+                            <p:column headerText="Usuń"  style="width:7%">
                                 <!--   <h:form>-->
-                                <p:commandButton value="Delete" actionListener="#{clientController.deleteClient(client.ID)}" ajax="false" icon="ui-icon-close" />
+                                <p:commandButton value="Delete" action="#{clientController.deleteClient(client.ID)}"  icon="ui-icon-close" update=":form12:Baza_Danych"/>
                                 <!--                       <p:separator />
                               <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink" />-->
 
                                 <!-- </h:form>-->
 
                             </p:column>
-
-
                         </p:dataTable>
+
+
+
                     </h:form>
+                    <h:form>
+                    <div style=" position: fixed;bottom: 10%;width: 100%;font-variant:small-caps;font-weight: bold;font-size: larger;background-color: buttonhighlight" clas="belzebub"> 
+
+                             <div class="nabuhodonozr" style="float: left;border: groove;width: 6%">
+                            <p:outputLabel for="id" value="ID:"  />
+                            <p:inputText id="id" value="#{clientController.temporaryID}" style="border: none;width: 60%"/>
+                        </div>
+                             <div class="nabuhodonozr" style="float: left;border: groove;width: 10%">
+                            <p:outputLabel for="date" value="Data:"  />
+                            <p:inputText id="date" value="#{clientController.temporaryDate}"  style="border: none;width: 60%"/>
+                        </div>
+                        <div class="nabuhodonozr" style="float: left;border: groove;width: 14%">
+                            <p:outputLabel for="name" value="Imię:"  />
+                            <p:inputText id="name" value="#{clientController.temporaryName}" maxlength="32" style="border: none;width: 60%"/>
+                        </div>
+                        <div class="nabuhodonozr" style="float: left;width: 14%;border: groove">
+                            <p:outputLabel for="surname" value="Nazwisko:" />     
+                            <p:inputText id="surname" value="#{clientController.temporarySurname}" maxlength="32" style="border: none;width: 60%"/>
+                        </div> 
+                        <div class="nabuhodonozr" style="float: left;width: 14%;border: groove">
+                            <p:outputLabel for="phone" value="Numer:" />
+                            <p:inputMask id="phone" value="#{clientController.temporaryNumber}" mask="(+99) 999-99-99-99" style="border: none;width: 60%"/>
+                        </div>
+                        <div class="nabuhodonozr" style="float: left;width: 20%;border: groove">
+                            <p:outputLabel for="comment" value="Komentarz:" />
+                            <p:inputText id="comment" value="#{clientController.temporaryComment}" maxlength="500" style="border: none;width: 60%" />
+                        </div>
+                         <p:commandButton value="Dodaj" action="#{clientController.addClient()}" update=":form12:Baza_Danych" />
+                         <p:commandButton value="Znajdź"  update=":form12:Baza_Danych"  />
+
+                    </div>
+                    </h:form>
+
                 </p:layoutUnit>
 
             </p:layout>

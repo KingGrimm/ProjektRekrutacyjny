@@ -6,11 +6,14 @@
 package entities;
 
 import controler.ClientController;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 /**
  *
  * @author King
@@ -20,7 +23,7 @@ import javax.faces.bean.ManagedBean;
 public class Client {
 
 private int ID;
-private LocalDateTime date;
+private LocalDate date;
 private String name;
 private String surname;
 private String telephone_number;
@@ -49,7 +52,7 @@ private String comment;
            this.surname = surname;
            this.telephone_number=telephone_number;
            this.comment=comment;
-           this.date=LocalDateTime.now();
+           this.date=LocalDate.now();
         //    this.telephone_number = telephone_number;
         //    this.comment = comment;
     }
@@ -109,12 +112,21 @@ private String comment;
         this.comment = comment;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDate(String date) {
+        try{
+        LocalDate a=LocalDate.parse(date);
+        System.out.println("Data widziana jako string: "+date+" Data widziana jako LD: "+a);
+        this.date = a;
+        }
+        catch(Exception e){
+              FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Nie można zapisać", "Sprawdź format daty,");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+            
     }
 
     

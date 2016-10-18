@@ -7,6 +7,7 @@
 
     <f:view contentType="text/html">
         <h:head>
+            
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>PrimeFaces</title>
@@ -40,14 +41,13 @@
                         <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
 
                             <p:outputLabel for="name" value="Name:"  />
-                            <p:inputText id="name" value="#{clientController.temporaryName}"/>
-
+                            <p:inputText id="name" value="#{clientController.temporaryName}" maxlength="32"/>
                             <p:outputLabel for="surname" value="Surname:" />
-                            <p:inputText id="surname" value="#{clientController.temporarySurname}" />
+                            <p:inputText id="surname" value="#{clientController.temporarySurname}" maxlength="32"/>
                             <p:outputLabel for="phone" value="Phone:" />
-                            <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
+                            <p:inputMask id="phone" value="#{clientController.temporaryNumber}" mask="(+99) 999-99-99-99"/>
                             <p:outputLabel for="comment" value="Comment:" />
-                            <p:inputText id="comment" value="#{clientController.temporaryComment}" />
+                            <p:inputText id="comment" value="#{clientController.temporaryComment}" maxlength="500" />
 
                             <p:commandButton value="Reset" type="reset" />
                             <p:commandButton value="Submit" action="#{clientController.addClient()}" />
