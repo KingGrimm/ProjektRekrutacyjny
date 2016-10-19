@@ -26,7 +26,7 @@ public class Validator implements javax.faces.validator.Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         int counter = 0;
         ClientController a = new ClientController();
-        List<Client> c=new ArrayList<Client>(a.getListowadupa());
+        List<Client> c=new ArrayList<Client>(a.getListofclients());
         c.add(new Client());
         c.get(c.size()-1).setID(Integer.parseInt(String.valueOf(value)));
          c.add(new Client());

@@ -41,7 +41,7 @@
                             }">
                         <p:growl id="msgs" showDetail="true"  />
 
-                        <p:dataTable  scrollable="true" scrollHeight="795"   rowKey="#{client.ID}" id="Baza_Danych" var="client" value="#{clientController.listowadupa}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true"  emptyMessage="Nie znaleziono klientów spełaniających zadane kryteria." filteredValue="#{clientController.filteredClients}" selection="#{clientController.selectedClient}">
+                        <p:dataTable  scrollable="true" scrollHeight="795"   rowKey="#{client.ID}" id="Baza_Danych" var="client" value="#{clientController.listofclients}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true"  emptyMessage="Nie znaleziono klientów spełaniających zadane kryteria." filteredValue="#{clientController.filteredClients}" selection="#{clientController.selectedClient}">
 
                             <f:facet name="header"> Baza klientów</f:facet>
 
@@ -84,9 +84,9 @@
                                     <f:facet name="input"><p:inputText value="#{client.comment}" style="width:100%" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column  headerText="Edytuj" style="width:4%">
+                            <p:column  headerText="Edytuj" style="width:4%;text-align: center">
 
-                                <p:rowEditor />
+                                <p:rowEditor  />
 
                             </p:column>
                             <p:column headerText="Usuń"  style="width:7%">

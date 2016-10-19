@@ -11,18 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.ValidatorException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
@@ -40,32 +34,29 @@ public class ClientController {
     private String temporaryID;
 
     static private int currentID;
-    private List<Client> listowadupa;
+    private List<Client> listofclients;
     private static List<Client> zajebistalista;
     private List<Client> filteredClients;
     private static Client selectedClient;
-
-    public void dupa() {
-        /* FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dupa/;",  null);
-         FacesContext.getCurrentInstance().addMessage(null, message);*/
-        System.out.println("KOnsola KURWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...kkkk");
-    }
-
+    
+    /**
+     * Metoda dodająca nowego klienta do listy.
+     */
     public void addClient(/*int ID, Date date, String name, String surname, String telephone_number, String comment*/) {
         FacesContext context = FacesContext.getCurrentInstance();
         String test = temporaryNumber.replaceAll("_", "");;
         if (test.length() > 17) {
             System.out.println("Name: " + temporaryName + " Surname: " + temporarySurname + " NR: " + temporaryNumber);
-            listowadupa.add(new Client(temporaryName, temporarySurname, temporaryNumber, temporaryComment));
-            listowadupa.get(listowadupa.size() - 1).setID(currentID);
+            listofclients.add(new Client(temporaryName, temporarySurname, temporaryNumber, temporaryComment));
+            listofclients.get(listofclients.size() - 1).setID(currentID);
             currentID++;
-            System.out.println("Dodano klienta. Rozmiar vetora to " + listowadupa.size());
-            System.out.println(listowadupa.get(listowadupa.size() - 1).toString());
+            System.out.println("Dodano klienta. Rozmiar vetora to " + listofclients.size());
+            System.out.println(listofclients.get(listofclients.size() - 1).toString());
             temporaryName = "";
             temporarySurname = "";
             temporaryNumber = "";
             temporaryComment = "";
-            zajebistalista = new ArrayList<>(listowadupa);
+            zajebistalista = new ArrayList<>(listofclients);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sukces", "Klient został dodany do bazy"));
         } else {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Niepowodzenie", "Sprawdź czy pola Imie, Nazwisko i Numer sa prawdiłowo wypełnione."));
@@ -74,13 +65,13 @@ public class ClientController {
     }
 
     public void addClient(String name, String surname, String telephone, String comment) {
-        listowadupa.add(new Client(name, surname, telephone, comment));
-        listowadupa.get(listowadupa.size() - 1).setID(currentID);
+        listofclients.add(new Client(name, surname, telephone, comment));
+        listofclients.get(listofclients.size() - 1).setID(currentID);
         System.out.println("Dodane " + new Client(name, surname, telephone, comment));
         currentID++;
         System.out.println("Dodane " + new Client(name, surname, telephone, comment));
 
-        zajebistalista = new ArrayList<>(listowadupa);
+        zajebistalista = new ArrayList<>(listofclients);
     }
 
 
@@ -92,8 +83,8 @@ public class ClientController {
         if (zajebistalista == null) {
             zajebistalista = new ArrayList<Client>();
         }
-        if (listowadupa == null) {
-            listowadupa = new ArrayList<Client>(zajebistalista);
+        if (listofclients == null) {
+            listofclients = new ArrayList<Client>(zajebistalista);
         }
 
     }
@@ -121,16 +112,16 @@ public class ClientController {
         this.temporarySurname = temporarySurname;
     }
 
-    public List<Client> getListowadupa() {
-        for (int i = 0; i < listowadupa.size(); i++) {
+    public List<Client> getListofclients() {
+        for (int i = 0; i < listofclients.size(); i++) {
             //       System.out.println(listowadupa.get(i));\
             ;
         }
-        return listowadupa;
+        return listofclients;
     }
 
-    public void setListowadupa(List<Client> listowadupa) {
-        this.listowadupa = listowadupa;
+    public void setListofclients(List<Client> listofclients) {
+        this.listofclients = listofclients;
     }
 
     public String getTemporaryNumber() {
@@ -174,10 +165,10 @@ public class ClientController {
     private void removeClientWithId(String id) {
         int idk = Integer.parseInt(id);
         System.out.println("Usunieto klienta o ID " + id);
-        for (Client a : listowadupa) {
+        for (Client a : listofclients) {
             if (a.getID() == idk) {
-                listowadupa.remove(a);
-                zajebistalista = new ArrayList<>(listowadupa);
+                listofclients.remove(a);
+                zajebistalista = new ArrayList<>(listofclients);
                 return;
             }
         }
@@ -187,9 +178,9 @@ public class ClientController {
     private void removeClientWithId() {
         System.out.println("Rozpoczynam usuwanie puste");
         System.out.println("Usunieto klienta o ID " + selectedClient.getID());
-        listowadupa.remove(selectedClient);
+        listofclients.remove(selectedClient);
         selectedClient = null;
-        zajebistalista = new ArrayList<>(listowadupa);
+        zajebistalista = new ArrayList<>(listofclients);
 
     }
 
@@ -244,7 +235,7 @@ public class ClientController {
     }
 
     public List<Client> findClient() {
-        List<Client> findings = new ArrayList<Client>(listowadupa);
+        List<Client> findings = new ArrayList<Client>(listofclients);
         System.out.println("Zawartosc nowego findings:");
         System.out.println(findings);
         if (temporaryComment == null) {
@@ -266,9 +257,9 @@ public class ClientController {
             temporaryID = "";
         }
 
-        for (int i = listowadupa.size() - 1; i >= 0; i--) {
-            if (((listowadupa.get(i).getName()).contains(temporaryName) == false) || (listowadupa.get(i).getSurname().contains(temporarySurname) == false || listowadupa.get(i).getTelephone_number().contains(temporaryNumber) == false)
-                    || listowadupa.get(i).getComment().contains(temporaryComment) == false || listowadupa.get(i).getDate().contains(temporaryDate) == false || Integer.toString(listowadupa.get(i).getID()).contains(temporaryID) == false) {
+        for (int i = listofclients.size() - 1; i >= 0; i--) {
+            if (((listofclients.get(i).getName()).contains(temporaryName) == false) || (listofclients.get(i).getSurname().contains(temporarySurname) == false || listofclients.get(i).getTelephone_number().contains(temporaryNumber) == false)
+                    || listofclients.get(i).getComment().contains(temporaryComment) == false || listofclients.get(i).getDate().contains(temporaryDate) == false || Integer.toString(listofclients.get(i).getID()).contains(temporaryID) == false) {
                 findings.remove(i);
             }
         }
