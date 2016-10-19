@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body onload="">
+           <h:form>
+
+    <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
+      
+        <p:outputLabel for="name" value="Name:"  />
+        <p:inputText id="name" value="#{clientController.temporaryName}"/>
+ 
+        <p:outputLabel for="surname" value="Surname:" />
+        <p:inputText id="surname" value="#{clientController.temporarySurname}" />
+         <p:outputLabel for="phone" value="Phone:" />
+         <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
+         <p:outputLabel for="comment" value="Comment:" />
+         <p:inputText id="comment" value="#{clientController.temporaryComment}" />
+                 
+        <p:commandButton value="Reset" type="reset" />
+        <p:commandButton value="Submit" action="#{clientController.addClient()}" />
+  
+  
+
+    </h:panelGrid>
+                   </h:form>
+
+      
+    
+        Hello from Facelets
+        <br />
+        <h:link outcome="newxhtml" value="Primefaces welcome page" />
+    </h:body>
+</html>
+

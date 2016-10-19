@@ -5,15 +5,14 @@
         <group>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/controler/ClientController.java</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/vhj/NewSessionBean.java</file>
-            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/entities/NewEntity.java</file>
-            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/controler/NewWebService.java</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/index.xhtml</file>
-            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/newxhtml.xhtml</file>
+            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/findclient.xhtml</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/entities/Client.java</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/index2.xhtml</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/addingclient.xhtml</file>
             <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/web/welcomePrimefaces.xhtml</file>
+            <file>file:/C:/Users/King/Documents/NetBeansProjects/ProjektRekrutacyjny/src/java/controler/Validator.java</file>
         </group>
     </open-files>
 </project-private>

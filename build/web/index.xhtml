@@ -1,41 +1,150 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body onload="">
-           <h:form>
 
-    <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
-      
-        <p:outputLabel for="name" value="Name:"  />
-        <p:inputText id="name" value="#{clientController.temporaryName}"/>
- 
-        <p:outputLabel for="surname" value="Surname:" />
-        <p:inputText id="surname" value="#{clientController.temporarySurname}" />
-         <p:outputLabel for="phone" value="Phone:" />
-         <p:inputText id="phone" value="#{clientController.temporaryNumber}" />
-         <p:outputLabel for="comment" value="Comment:" />
-         <p:inputText id="comment" value="#{clientController.temporaryComment}" />
-                 
-        <p:commandButton value="Reset" type="reset" />
-        <p:commandButton value="Submit" action="#{clientController.addClient()}" />
-  
-  
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Projekt Rekrutacyjny 2016, Michał Giesak</title>
+            </f:facet>
+        </h:head>
+        <h:body>
 
-    </h:panelGrid>
-                   </h:form>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="false" closable="true" collapsible="true">
+                    Header
+                </p:layoutUnit>
 
-      
-    
-        Hello from Facelets
-        <br />
-        <h:link outcome="newxhtml" value="Primefaces welcome page" />
-    </h:body>
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <h:form >
+                        <p:menu>
+                            <p:menuitem value="Zobacz baze" outcome="index" />
+                            <p:menuitem value="Generuj klientów" action="#{clientController.generateList()}" update=":form12:Baza_Danych" />
+                            <p:menuitem value="Znajdz klienta"  />
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center">
+                    <h:form id="form12" onkeypress="if (event.keyCode == 13) {
+                                return false;
+                            }">
+
+                        <p:growl id="msgs" showDetail="true"  />
+
+
+
+
+
+                        <p:dataTable  rowKey="#{client.ID}" id="Baza_Danych" var="client" value="#{clientController.listowadupa}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true"  emptyMessage="Nie znaleziono klientów spełaniających zadane kryteria." filteredValue="#{clientController.filteredClients}">
+
+                            <f:facet name="header"> Baza klientów</f:facet>
+                      
+                            <p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form12:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form12:msgs" />
+
+                            <p:column headerText="ID" style="width:8%" sortBy="#{client.ID}" filterBy="#{client.ID}">
+                             <h:outputText value="#{client.ID}"  />
+                            </p:column>
+                            
+                            <p:column headerText="Data dodania:" sortBy="#{client.string_date}" filterBy="#{client.string_date}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.date}"  /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputMask value="#{client.date}" style="width:100%" mask="9999-99-99"/>
+                                    </f:facet>
+                                </p:cellEditor>
+
+
+                            </p:column>
+                            <p:column headerText="Imię:" sortBy="#{client.name}" filterBy="#{client.name}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.name}"  /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Nazwisko:" sortBy="#{client.surname}" filterBy="#{client.surname}" >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.surname}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.surname}" style="width:100%" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Numer telefonu:" sortBy="#{client.telephone_number}" filterBy="#{client.telephone_number}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{client.telephone_number}" style="float:center" /></f:facet>
+                                    <f:facet name="input"><p:inputMask value="#{client.telephone_number}"  style="width:100%;float:center" mask="(+99) 999-99-99-99" /></f:facet>
+                                </p:cellEditor>
+                            </p:column>  
+                            <p:column headerText="Komentarz:" sortBy="#{client.comment}" filterBy="#{client.comment}">
+                                 <p:cellEditor>
+                                     <f:facet name="output"><h:outputText value="#{client.comment}" style="float:center" /></f:facet>
+                                     <f:facet name="input"><p:inputText value="#{client.comment}" style="width:100%" /></f:facet>
+                                 </p:cellEditor>
+                            </p:column>
+                            <p:column  headerText="Edytuj" style="width:4%">
+                    <!--    <p:commandButton value="Edit" actionListener="#{clientController.chooseCar()}"  icon="ui-icon-arrowrefresh-1-w" />  -->
+
+
+                                <p:rowEditor />
+
+                            </p:column>
+                            <p:column headerText="Usuń"  style="width:7%">
+
+                                <p:commandButton  value="Delete" action="#{clientController.deleteClientPusty()}"  icon="ui-icon-trash" update=":form12:Baza_Danych" >
+                                    <f:setPropertyActionListener value="#{client}" target="#{clientController.selectedClient}"/>:
+                                </p:commandButton>
+
+                            </p:column>
+                        </p:dataTable>
+
+
+
+                    </h:form>
+                    <h:form id="form13">
+                     <p:growl id="growl" showDetail="true"  />  
+                        <div style=" position: fixed;bottom: 10%;width: 100%;font-variant:small-caps;font-weight: bold;font-size: larger;background: buttonface" clas="belzebub"> 
+
+                            <div class="nabuhodonozr" style="float: left;border: groove;width: 18%">
+                                <h:outputLabel for="name" value="Imię:"  />
+                                <p:inputText id="name" value="#{clientController.temporaryName}" maxlength="32" style="border: none" placeholder="Tu wpisz nazwisko."  required="true" requiredMessage="Pole Imie jest wymagane."/>
+                                
+                            </div> 
+                            <div class="nabuhodonozr" style="float: left;width: 18%;border: groove">
+                                <h:outputLabel for="surname" value="Nazwisko:"   />     
+                                <p:inputText id="surname" value="#{clientController.temporarySurname}" maxlength="32" style="border: none" placeholder="Tu wpisz nazwisko." required="true" requiredMessage="Pole Nazwisko jest wymagane."/>
+                          
+                            </div> 
+                            <div class="nabuhodonozr" style="float: left;width: 18%;border: groove">
+                                <h:outputLabel for="phone" value="Numer:" />
+                                <p:inputMask id="phone" value="#{clientController.temporaryNumber}" mask="(+99) 999-99-99-99" style="border: none" placeholder="Tu wpisz numer telefonu." required="true" requiredMessage="Pole Numer jest wymagane."/>
+                            </div>
+                            <div class="nabuhodonozr" style="float: left;width: 21%;border: groove">
+                                <p:outputLabel for="comment" value="Komentarz:" />
+                                <p:inputText id="comment" value="#{clientController.temporaryComment}" maxlength="500" style="border: none;width: 68%" />
+                            </div>
+                            <div>
+                                <p:commandButton value="Dodaj" action="#{clientController.addClient()}" update=":form12:Baza_Danych growl" style="height:38px" />
+                            </div>
+
+                        </div>
+                    
+                    </h:form>
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+
+        </h:body>
+    </f:view>
 </html>
 

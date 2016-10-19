@@ -24,6 +24,7 @@ public class Client {
 
 private int ID;
 private LocalDate date;
+private String string_date;
 private String name;
 private String surname;
 private String telephone_number;
@@ -68,12 +69,12 @@ private String comment;
     }
 
     public String getName() {
-        System.out.println("Pobrano imie: "+name);
+      //  System.out.println("Pobrano imie: "+name);
         return name;
     }
 
     public void setName(String name) {
-        System.out.println("Zmieniono nazwe z "+this.name+" na "+name);
+      //  System.out.println("Zmieniono nazwe z "+this.name+" na "+name);
         this.name = name;
         
     }
@@ -83,7 +84,7 @@ private String comment;
     }
 
     public void setSurname(String surname) {
-        System.out.println("Zmiana Surname z "+this.surname+" na "+surname);
+     //   System.out.println("Zmiana Surname z "+this.surname+" na "+surname);
         this.surname = surname;
     }
 
@@ -94,6 +95,7 @@ private String comment;
 
 
     public Client() {
+        this.date=LocalDate.now();
     }
 
     public String getTelephone_number() {
@@ -127,6 +129,15 @@ private String comment;
         FacesContext.getCurrentInstance().addMessage(null, message);
         }
             
+    }
+
+    public String getString_date() {
+        string_date=this.getDate();
+        return string_date;
+    }
+
+    public void setString_date(String string_date) {
+        this.string_date = string_date;
     }
 
     
