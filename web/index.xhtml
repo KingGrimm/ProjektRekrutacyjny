@@ -41,9 +41,16 @@
                             }">
                         <p:growl id="msgs" showDetail="true"  />
 
-                        <p:dataTable  scrollable="true" scrollHeight="795"   rowKey="#{client.ID}" id="Baza_Danych" var="client" value="#{clientController.listofclients}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true"  emptyMessage="Nie znaleziono klientów spełaniających zadane kryteria." filteredValue="#{clientController.filteredClients}" selection="#{clientController.selectedClient}">
+                        <p:dataTable widgetVar="clientTable"  scrollable="true" scrollHeight="795"   rowKey="#{client.ID}" id="Baza_Danych" var="client" value="#{clientController.listofclients}" editable="true" style="margin-bottom:20px" draggableColumns="true" resizableColumns="true"  emptyMessage="Nie znaleziono klientów spełaniających zadane kryteria." filteredValue="#{clientController.filteredClients}" selection="#{clientController.selectedClient}">
 
-                            <f:facet name="header"> Baza klientów</f:facet>
+                            <f:facet name="header"> Baza klientów
+                                <br />
+                                <p:outputPanel style="align-content: stretch">
+                                    <h:outputText value="Szukaj po wszystkich polach:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('clientTable').filter()" style="width:150px; " placeholder="Wpisz zapytanie"/>
+                                <br />
+                                </p:outputPanel>
+                            </f:facet>
 
                             <p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form12:msgs" />
                             <p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form12:msgs" />
@@ -63,19 +70,19 @@
                             <p:column headerText="Imię:" sortBy="#{client.name}" filterBy="#{client.name}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{client.name}"  /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.name}" style="width:100%"  required="true" requiredMessage="Pole Imie jest wymagane." /></f:facet>
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="Nazwisko:" sortBy="#{client.surname}" filterBy="#{client.surname}" >
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{client.surname}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{client.surname}" style="width:100%" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{client.surname}" style="width:100%" required="true" requiredMessage="Pole Nazwisko jest wymagane." /></f:facet>
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="Numer telefonu:" sortBy="#{client.telephone_number}" filterBy="#{client.telephone_number}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{client.telephone_number}" style="float:center" /></f:facet>
-                                    <f:facet name="input"><p:inputMask value="#{client.telephone_number}"  style="width:100%;float:center" mask="(+99) 999-99-99-99" /></f:facet>
+                                    <f:facet name="input"><p:inputMask value="#{client.telephone_number}" required="true" style="width:100%;float:center" mask="(+99) 999-99-99-99" requiredMessage="Pole Numer jest wymagane." /></f:facet>
                                 </p:cellEditor>
                             </p:column>  
                             <p:column headerText="Komentarz:" sortBy="#{client.comment}" filterBy="#{client.comment}">
@@ -107,7 +114,7 @@
 
             <p:dialog header="Dodaj klienta:" widgetVar="addclt"  modal="true" resizable="false" width="430px">
                 <h:form>
-                      <p:growl id="growl" showDetail="true"  />  
+                    <p:growl id="growl" showDetail="true"  />  
                     <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5"  >   
 
                         <h:outputLabel for="name" value="Imię: "  />

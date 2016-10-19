@@ -35,7 +35,7 @@ public class ClientController {
 
     static private int currentID;
     private List<Client> listofclients;
-    private static List<Client> zajebistalista;
+    private static List<Client> dobralista;
     private List<Client> filteredClients;
     private static Client selectedClient;
     
@@ -56,7 +56,7 @@ public class ClientController {
             temporarySurname = "";
             temporaryNumber = "";
             temporaryComment = "";
-            zajebistalista = new ArrayList<>(listofclients);
+            dobralista = new ArrayList<>(listofclients);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sukces", "Klient został dodany do bazy"));
         } else {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Niepowodzenie", "Sprawdź czy pola Imie, Nazwisko i Numer sa prawdiłowo wypełnione."));
@@ -71,7 +71,7 @@ public class ClientController {
         currentID++;
         System.out.println("Dodane " + new Client(name, surname, telephone, comment));
 
-        zajebistalista = new ArrayList<>(listofclients);
+        dobralista = new ArrayList<>(listofclients);
     }
 
 
@@ -80,22 +80,15 @@ public class ClientController {
     }*/
     public ClientController() {
         System.out.println("Powstaje nowy kontroler.");
-        if (zajebistalista == null) {
-            zajebistalista = new ArrayList<Client>();
+        if (dobralista == null) {
+            dobralista = new ArrayList<Client>();
         }
         if (listofclients == null) {
-            listofclients = new ArrayList<Client>(zajebistalista);
+            listofclients = new ArrayList<Client>(dobralista);
         }
 
     }
 
-    /* public void dodajkkk(/*Client a*)/*){
-        a=
-        a.setID(listOfClients.size());
-        listOfClients.add(a);
-        System.out.println("Dodano klienta. Rozmiar vetora to "+listOfClients.size());
-        System.out.println(listOfClients.get(listOfClients.size()-1).toString());
-    }*/
     public String getTemporaryName() {
         return temporaryName;
     }
@@ -168,7 +161,7 @@ public class ClientController {
         for (Client a : listofclients) {
             if (a.getID() == idk) {
                 listofclients.remove(a);
-                zajebistalista = new ArrayList<>(listofclients);
+                dobralista = new ArrayList<>(listofclients);
                 return;
             }
         }
@@ -180,7 +173,7 @@ public class ClientController {
         System.out.println("Usunieto klienta o ID " + selectedClient.getID());
         listofclients.remove(selectedClient);
         selectedClient = null;
-        zajebistalista = new ArrayList<>(listofclients);
+        dobralista = new ArrayList<>(listofclients);
 
     }
 
