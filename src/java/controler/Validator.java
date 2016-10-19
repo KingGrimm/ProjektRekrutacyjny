@@ -31,6 +31,7 @@ public class Validator implements javax.faces.validator.Validator {
         c.get(c.size()-1).setID(Integer.parseInt(String.valueOf(value)));
          c.add(new Client());
          c.get(c.size()-1).setID(Integer.parseInt(String.valueOf(value)));
+         System.out.println(a.getSelectedClient());
 
         for (int i = 0; i < c.size(); i++) {
             if (Integer.parseInt(String.valueOf(value)) == c.get(i).getID()) {
@@ -38,7 +39,7 @@ public class Validator implements javax.faces.validator.Validator {
                 System.out.println("Counter: "+counter);
             }
         }
-        if (counter!=2) {
+        if (counter>0&&(a.getSelectedClient().getID()!=Integer.parseInt(String.valueOf(value)))) {
             throw new ValidatorException(new FacesMessage("Dane ID już istnieje."));
         }
     }

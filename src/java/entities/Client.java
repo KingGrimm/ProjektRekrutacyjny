@@ -90,8 +90,10 @@ private String comment;
 
     @Override
     public String toString() {
-        return "Client{" + "ID=" + ID + ", name=" + name + ", surname=" + surname + '}';
+        return "Client{" + "ID=" + ID + ", date=" + date + ", string_date=" + string_date + ", name=" + name + ", surname=" + surname + ", telephone_number=" + telephone_number + ", comment=" + comment + '}';
     }
+
+
 
 
     public Client() {

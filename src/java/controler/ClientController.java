@@ -6,10 +6,12 @@
 package controler;
 
 import entities.Client;
+import entities.names_database;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -41,7 +43,7 @@ public class ClientController {
     private List<Client> listowadupa;
     private static List<Client> zajebistalista;
     private List<Client> filteredClients;
-    private Client selectedClient;
+    private static Client selectedClient;
 
     public void dupa() {
         /* FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dupa/;",  null);
@@ -51,9 +53,9 @@ public class ClientController {
 
     public void addClient(/*int ID, Date date, String name, String surname, String telephone_number, String comment*/) {
         FacesContext context = FacesContext.getCurrentInstance();
-        String test=temporaryNumber.replaceAll("_", "");;
-        if (test.length()>17) {
-            System.out.println("Name: " + temporaryName + " Surname: " + temporarySurname+" NR: "+temporaryNumber);
+        String test = temporaryNumber.replaceAll("_", "");;
+        if (test.length() > 17) {
+            System.out.println("Name: " + temporaryName + " Surname: " + temporarySurname + " NR: " + temporaryNumber);
             listowadupa.add(new Client(temporaryName, temporarySurname, temporaryNumber, temporaryComment));
             listowadupa.get(listowadupa.size() - 1).setID(currentID);
             currentID++;
@@ -64,10 +66,9 @@ public class ClientController {
             temporaryNumber = "";
             temporaryComment = "";
             zajebistalista = new ArrayList<>(listowadupa);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sukces",  "Klient został dodany do bazy") );     
-        }
-        else{
-             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Niepowodzenie",  "Sprawdź czy pola Imie, Nazwisko i Numer sa prawdiłowo wypełnione.") );  
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sukces", "Klient został dodany do bazy"));
+        } else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Niepowodzenie", "Sprawdź czy pola Imie, Nazwisko i Numer sa prawdiłowo wypełnione."));
         }
 
     }
@@ -75,7 +76,9 @@ public class ClientController {
     public void addClient(String name, String surname, String telephone, String comment) {
         listowadupa.add(new Client(name, surname, telephone, comment));
         listowadupa.get(listowadupa.size() - 1).setID(currentID);
+        System.out.println("Dodane " + new Client(name, surname, telephone, comment));
         currentID++;
+        System.out.println("Dodane " + new Client(name, surname, telephone, comment));
 
         zajebistalista = new ArrayList<>(listowadupa);
     }
@@ -146,10 +149,16 @@ public class ClientController {
         this.temporaryComment = temporaryComment;
     }
 
-    public void generateList() {
-        addClient("Zdzislaw", "Kowalczyk", "61025465", "Anonimowy Alkoholik");
+    public void generateList(int number) {
+
+ 
+        for (int i = 0; i < number; i++) {                  
+          addClient(names_database.getRandomName(), names_database.getRandomSurname(), names_database.getRandomNumber(), "");
+        }
+
+        /*    addClient("Zdzislaw", "Kowalczyk", "61025465", "Anonimowy Alkoholik");
         addClient("Kamil", "Bednarek", "99562515", "Pantoflarz");
-        addClient("Marek", "Tworek", "605965565", "");
+        addClient("Marek", "Tworek", "605965565", "");*/
     }
 
     public void deleteClient(String id) {
@@ -223,8 +232,7 @@ public class ClientController {
     }
 
     public void onRowEdit(RowEditEvent event) {
-        
-        
+
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Client Edited", "You succesfullly edited client with ID=" + String.valueOf(((Client) event.getObject()).getID()) + ".");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -232,6 +240,7 @@ public class ClientController {
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        
     }
 
     public List<Client> findClient() {
@@ -307,6 +316,5 @@ public class ClientController {
         FacesMessage msg = new FacesMessage("Car Selected", (Integer.toString(((Client) event.getObject())).getID()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }*/
-  
-  
+    
 }

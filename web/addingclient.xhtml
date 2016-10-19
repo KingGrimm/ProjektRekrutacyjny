@@ -16,28 +16,9 @@
 
         <h:body>
 
-            <p:layout fullPage="true">
-
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-
-                        <p:menuitem value="Zobacz baze" outcome="newxhtml" />
-                        <p:menuitem value="Dodaj klienta" outcome="addingclient" />
-                        <p:menuitem value="Znajdz klienta" outcome="findclient" />
-                    </p:menu>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
-                    <h:form>
+        
+            <p:dialog header="Dodaj klienta:" widgetVar="addclt"  modal="true" resizable="false">
+                  <h:form>
                         <h:panelGrid id="pannnelgrid"  columns="2" cellpadding="5" >   
 
                             <p:outputLabel for="name" value="Name:"  />
@@ -50,17 +31,43 @@
                             <p:inputText id="comment" value="#{clientController.temporaryComment}" maxlength="500" />
 
                             <p:commandButton value="Reset" type="reset" />
-                            <p:commandButton value="Submit" action="#{clientController.addClient()}" />
-
+                            <p:commandButton value="Submit" action="#{clientController.addClient()}" oncomplete="PF('addclt').hide()" />
+                       
                         </h:panelGrid>
                     </h:form>
-                    <h:form>
-                        <p:commandButton value="Generate" action="#{clientController.generateList()}" />
-                    </h:form>
-                </p:layoutUnit>
+                   
+            </p:dialog>
+            
+            
+            
+            <h:form id="form13">
+                        <p:growl id="growl" showDetail="true"  />  
+                        <div style=" width: 100%;font-variant:small-caps;font-weight: bold;font-size: larger;background: buttonface;" clas="belzebub"> 
 
-            </p:layout>
+                            <div class="nabuhodonozr" style="float: left;border: groove;width: 18%">
+                                <h:outputLabel for="name" value="Imię: "  />
+                                <p:inputText id="name" value="#{clientController.temporaryName}" maxlength="32" style="border: none" placeholder="Tu wpisz nazwisko."  required="true" requiredMessage="Pole Imie jest wymagane."/>
 
+                            </div> 
+                            <div class="nabuhodonozr" style="float: left;width: 22%;border: groove">
+                                <h:outputLabel for="surname" value="Nazwisko: "   />     
+                                <p:inputText id="surname" value="#{clientController.temporarySurname}" maxlength="32" style="border: none" placeholder="Tu wpisz nazwisko." required="true" requiredMessage="Pole Nazwisko jest wymagane."/>
+
+                            </div> 
+                            <div class="nabuhodonozr" style="float: left;width: 22%;border: groove">
+                                <h:outputLabel for="phone" value="Numer: " />
+                                <p:inputMask id="phone" value="#{clientController.temporaryNumber}" mask="(+99) 999-99-99-99" style="border: none" placeholder="(+__) ___-__-__-__" required="true" requiredMessage="Pole Numer jest wymagane."/>
+                            </div>
+                            <div class="nabuhodonozr" style="float: left;width: 28%;border: groove">
+                                <p:outputLabel for="comment" value="Komentarz: "  />
+                                <p:inputText id="comment" value="#{clientController.temporaryComment}" maxlength="500" style="border: none;width: 68%" placeholder="Tu możesz wpisać komentarz." />
+                            </div>
+                            <div>
+                                <p:commandButton value="Dodaj" action="#{clientController.addClient()}" update=":form12:Baza_Danych growl" style="height:38px;width:160px" />
+                            </div>
+
+                        </div>
+                        </h:form>
         </h:body>
 
     </f:view>
